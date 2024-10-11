@@ -18,7 +18,7 @@ def greet_names_from_file(filename):
                 error_file.write(f"Invalid name: {name}n")
 
 def greet_user():
-      try:
+    try:
         while True:
             name = input("Please enter your name: ").strip()
             if is_valid_name(name):
