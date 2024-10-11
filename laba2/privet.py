@@ -24,7 +24,8 @@ def greet_user():
             if is_valid_name(name):
                 print(f"Hello, {name}!")
             else:
-                print(f"Invalid name: {name}. It must start with a lowercase letter and contain only lowercase letters.>    except KeyboardInterrupt:
+                print(f"Invalid name: {name}. It must start with a lowercase letter and contain only lowercase letters.")
+    except KeyboardInterrupt:
         print("nGoodbye!")
 
 def main():
