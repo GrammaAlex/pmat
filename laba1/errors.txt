@@ -1,0 +1,3 @@
+Error: Division by zero encountered.
+Error: Cannot calculate the square root of a negative number.
+Error: Division by zero encountered.
