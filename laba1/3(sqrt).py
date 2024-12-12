@@ -1,33 +1,29 @@
-#!/usr/bin/python3
-import sys
+#!/usr/bin/env python3
+
 import math
+import sys
 
+try:
+    # Чтение значения C из stdin
+    C = float(sys.stdin.readline().strip())
 
-def main():
-    try:
-        # Читаем входные данные
-        input_data = input("Enter a number: ").strip()
+    # Вычисление квадратного корня
+    if C < 0:
+        raise ValueError("Cannot calculate the square root of a negative number.")
 
-        if not input_data:
-            raise ValueError("Input is empty.")
+    sqrt_result = math.sqrt(C)
 
-        number = float(input_data)
+    # Запись результата в output.txt
+    with open("output.txt", "w") as output_file:
+        output_file.write(f"{sqrt_result}\n")
 
-        # Проверяем, что число не отрицательное
-        if number < 0:
-            raise ValueError("Cannot calculate square root of a negative number.")
+    # Логирование значения C
+    with open("logs.txt", "a") as log_file:
+        log_file.write(f"C = {C}\n")
 
-        # Вычисляем квадратный корень
-        result = math.sqrt(number)
-        # Записываем результат в файл с добавлением, а не перезаписью
-        with open('output.txt', 'a') as f:
-            f.write(f"{result}\n")
+except Exception as e:
+    # Запись ошибки в файл errors.txt
+    with open("errors.txt", "a") as error_file:
+        error_file.write(f"Error: {str(e)}\n")
+    sys.exit(1)
 
-    except ValueError as e:
-        print(f"Error: {e}", file=sys.stderr)
-    except Exception as e:
-        print(f"Unexpected error: {e}", file=sys.stderr)
-
-
-if __name__ == "__main__":
-    main()
