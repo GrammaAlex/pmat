@@ -3,32 +3,43 @@ import os
 import string
 
 def is_valid_name(name):
-    return name[0].isupper() and name[1:].islower() and all(c in string.ascii_letters for c in name)
+    """Проверяет, является ли имя валидным (начинается с маленькой буквы и содержит только буквы)."""
+    return name[0].islower() and all(c in string.ascii_letters for c in name)
 
 def greet_names_from_file(filename):
-    with open(filename, 'r') as file:
-        names = file.readlines()
+    """Приветствует имена из файла или записывает ошибки в error.txt."""
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            names = file.readlines()
+    except FileNotFoundError:
+        print(f"Error: File '{filename}' not found.")
+        return
+    except UnicodeDecodeError:
+        print(f"Error: Unable to read the file '{filename}'. Make sure it is encoded in UTF-8.")
+        return
 
-    with open('error.txt', 'w') as error_file:
+    with open('error.txt', 'w', encoding='utf-8') as error_file:
         for name in names:
             name = name.strip()
             if is_valid_name(name):
                 print(f"Hello, {name}!")
             else:
-                error_file.write(f"Invalid name: {name}n")
+                error_file.write(f"Invalid name: {name}\n")
 
 def greet_user():
+    """Позволяет пользователю вводить имена с приветствием и обработкой ошибок."""
     try:
         while True:
             name = input("Please enter your name: ").strip()
             if is_valid_name(name):
                 print(f"Hello, {name}!")
             else:
-                print(f"Invalid name: {name}. It must start with a lowercase letter and contain only lowercase letters.")
+                print("Invalid name. It must start with a lowercase letter and contain only letters.")
     except KeyboardInterrupt:
-        print("nGoodbye!")
+        print("\nGoodbye!")
 
 def main():
+    """Главная функция: выбирает режим работы."""
     mode = input("Choose mode (1 - file, 2 - user): ").strip()
     if mode == '1':
         filename = input("Enter the filename: ").strip()
