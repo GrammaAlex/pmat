@@ -1,32 +1,32 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+
 import random
 import sys
 
-def main():
-    try:
-        # Чтение ввода
-        input_data = input("Enter a number: ").strip()
-        if not input_data:
-            raise EOFError("No input provided.")
+try:
+    # Чтение значения A из stdin
+    A = int(sys.stdin.readline().strip())
 
-        # Преобразование ввода в целое число
-        A = int(input_data)
-        B = random.randint(-10, 10)
+    # Генерация случайного числа B
+    B = random.randint(-10, 10)
 
-        # Проверка деления на ноль и выполнение вычисления
-        result = A / B
-        print(result)
+    # Логирование значения B
+    with open("logs.txt", "a") as log_file:
+        log_file.write(f"B = {B}\n")
 
-    except ValueError:
-        print("Error: Input must be an integer.", file=sys.stderr)
-    except ZeroDivisionError:
-        print("Error: Division by zero is not allowed.", file=sys.stderr)
-    except EOFError as e:
-        print(f"Error: {e}", file=sys.stderr)
-    except Exception as e:
-        print(f"Unexpected error: {e}", file=sys.stderr)
-    finally:
-        print("Execution finished.", file=sys.stderr)
+    # Проверка деления на ноль
+    if B == 0:
+        raise ZeroDivisionError("Division by zero encountered.")
 
-if __name__ == "__main__":
-    main()
+    # Вычисление отношения
+    result = A / B
+
+    # Вывод результата
+    print(result)
+
+except Exception as e:
+    # Запись ошибки в файл errors.txt
+    with open("errors.txt", "a") as error_file:
+        error_file.write(f"Error: {str(e)}\n")
+    sys.exit(1)
+
