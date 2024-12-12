@@ -1,20 +1,14 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+
 import random
 import sys
 
-def generate_random_number():
-    try:
-        return random.randint(-10, 10)
-    except Exception as e:
-        raise RuntimeError(f"Error generating random number: {e}")
+# Генерация случайного числа A
+A = random.randint(-10, 10)
 
-def main():
-    try:
-        number = generate_random_number()
-        print(f"Generated number: {number}")
-    except Exception as e:
-        print(f"An error occurred: {e}", file=sys.stderr)
-        sys.exit(1)
+# Логирование значения A
+with open("logs.txt", "a") as log_file:
+    log_file.write(f"A = {A}\n")
 
-if __name__ == "__main__":
-    main()
+# Вывод A в стандартный вывод
+print(A)
