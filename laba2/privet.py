@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
 import string
+import sys
 
 def is_valid_name(name):
     """Проверяет, является ли имя валидным (начинается с маленькой буквы и содержит только буквы)."""
@@ -39,18 +40,17 @@ def greet_user():
         print("\nGoodbye!")
 
 def main():
-    """Главная функция: выбирает режим работы."""
-    mode = input("Choose mode (1 - file, 2 - user): ").strip()
-    if mode == '1':
-        filename = input("Enter the filename: ").strip()
+    """Главная функция: определяет режим работы."""
+    if len(sys.argv) > 1:
+        # Если передан аргумент, считаем его именем файла
+        filename = sys.argv[1]
         if os.path.isfile(filename):
             greet_names_from_file(filename)
         else:
             print(f"File '{filename}' does not exist.")
-    elif mode == '2':
-        greet_user()
     else:
-        print("Invalid mode selected.")
+        # Если аргумент не передан, запускаем интерактивный режим
+        greet_user()
 
 if __name__ == "__main__":
     main()
